@@ -39,7 +39,7 @@ while True:
     elif direction == 'up':
         caty -= 5
         if caty == 10:
-            direction = 'right'
+            direction = 'reight'
     
     DISPLAYSURF.blit(catImg,(catx,caty))
 
