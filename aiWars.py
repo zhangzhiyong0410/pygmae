@@ -87,7 +87,7 @@ while True:
                 if warplane.clo < CLO-2:
                     warplane.clo += 1
 
-    # 背景画图
+    #背景画图
     window.fill((225,225,225))
 
     #战机绘制
