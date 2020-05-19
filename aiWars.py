@@ -88,7 +88,7 @@ while True:
                     warplane.clo += 1
 
     # 背景画图
-    pygame.draw.rect(window, (215, 215, 215), (0, 0, width, hight))
+    window.fill((225,225,225))
 
     #战机绘制
     rect(warplane,warplaneColor)
