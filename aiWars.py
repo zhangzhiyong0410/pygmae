@@ -114,24 +114,24 @@ while True:
     enemyPlaneState = True
 
 
-    sum = 0
+    esum = 0
     enemyPlaneLen = len(enemyPlaneList)
 
     cannonballLen = len(cannonballList)
     
 
     #敌军冲锋
-    while sum < enemyPlaneLen:
+    while esum < enemyPlaneLen:
     
-        enemyPlaneList[sum].row += 1 
+        enemyPlaneList[esum].row += 1 
 
         #判断炮弹有没有打中
         csum = 0
         while csum < cannonballLen:
             enemyPlaneState = True
-            if (enemyPlaneList[sum].row == cannonballList[csum].row and enemyPlaneList[sum].clo == cannonballList[csum].clo) or (enemyPlaneList[sum].row+1 == cannonballList[csum].row and enemyPlaneList[sum].clo == cannonballList[csum].clo):
+            if (enemyPlaneList[esum].row == cannonballList[csum].row and enemyPlaneList[esum].clo == cannonballList[csum].clo) or (enemyPlaneList[esum].row+1 == cannonballList[csum].row and enemyPlaneList[esum].clo == cannonballList[csum].clo):
                 
-                del enemyPlaneList[sum]
+                del enemyPlaneList[esum]
                 enemyPlaneLen = len(enemyPlaneList)
                 
                 del cannonballList[csum]
@@ -147,12 +147,12 @@ while True:
 
             for w in warplanes:
 
-                if enemyPlaneList[sum].row == w.row and enemyPlaneList[sum].clo == w.clo:
+                if enemyPlaneList[esum].row == w.row and enemyPlaneList[esum].clo == w.clo:
 
                     print("碰到你就没了~")
                     pygame.quit()
                     sys.exit()
-        sum+=1
+        esum+=1
 
 
     #敌机绘制
