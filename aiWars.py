@@ -129,7 +129,7 @@ while True:
         csum = 0
         while csum < cannonballLen:
             enemyPlaneState = True
-            if enemyPlaneList[sum].row == cannonballList[csum].row and enemyPlaneList[sum].clo == cannonballList[csum].clo:
+            if (enemyPlaneList[sum].row == cannonballList[csum].row and enemyPlaneList[sum].clo == cannonballList[csum].clo) or (enemyPlaneList[sum].row+1 == cannonballList[csum].row and enemyPlaneList[sum].clo == cannonballList[csum].clo):
                 
                 del enemyPlaneList[sum]
                 enemyPlaneLen = len(enemyPlaneList)
