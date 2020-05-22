@@ -77,24 +77,57 @@ patterningfeiji=[
 def drawing():
     unnecessaryL = 0
     unnecessaryR = 0
-    patterningRandom = random.randint(0,6)
 
-    if patterningRandom == 1:
-        pass
+    unnecessary()
     
     for draw in patterning:
         pygame.draw.rect(DISPLAYSURF, color, (left, 0, windowsWidth / clo,windowsHeight / row))
 
-def unnecessary(patterning):
+def unnecessary():
+    
+    L = 0
+    R = 0
+
+    patterning = []    
+
     unnecessaryDict = {
-        'L':0,
-        'R':0,
-        'color':(0,0,0)
-        'left':''
+        'color':(0,0,0),
+        'left':'',
+        'patterning':[]
     }
+
+    patterningRandom = random.randint(0,6)
+    if patterningRandom == 0:
+        patterning = patterningtian
+        unnecessaryDict['color'] = colortian
+    elif patterningRandom == 1:
+        patterning = patterningshandian
+        unnecessaryDict['color'] = colorshandian
+    elif patterningRandom == 2:
+        patterning = patterningfshandian
+        unnecessaryDict['color'] = colorfshandian
+    elif patterningRandom == 3:
+        patterning = patterninggouzi
+        unnecessaryDict['color'] = colorgouzi
+    elif patterningRandom == 4:
+        patterning = patterningfgouzi
+        unnecessaryDict['color'] = colorfgouzi
+    elif patterningRandom == 5:
+        patterning = patterningbiandan
+        unnecessaryDict['color'] = colorbiandan
+    elif patterningRandom == 6:
+        patterning = patterningfeiji
+        unnecessaryDict['color'] = colorfeiji
+
     for p in patterning:
-        if(p.Coordinate.clo<head.clo)
-            unnecessaryDict['L'] = 
+        if(p.Coordinate.clo<=L):
+            L = p.Coordinate.clo
+        if(p.Coordinate.clo>=R):
+            R = p.Coordinate.clo
+    left = 
+        
+            
+
     
 
 
