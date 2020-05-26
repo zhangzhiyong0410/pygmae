@@ -162,6 +162,7 @@ while True:
 
     #炮火轰鸣
     for c in cannonballList:
+        
         c.row -= 1
     
     #炮弹绘制
