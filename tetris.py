@@ -4,7 +4,7 @@ import random
 import time
 
 #constant
-FPS = 10
+FPS = 5
 windowsWidth    = 200   #窗口宽
 windowsHeight   = 500   #窗口高
 row             = 25    #行
@@ -38,7 +38,6 @@ pinchou = []
 stop = False
 xz = False
 sjtx = []
-direction = 0
 
 class Coordinate:
     row = 0
@@ -55,8 +54,7 @@ def huizhi(color,left,top):
     pygame.draw.rect(DISPLAYSURF,color,(lefts,tops,windowsWidth/clo,windowsHeight/row))
 
 def suijituxing(randowGraphics):
-    sjtx = []
-
+    global sjtx
     if randowGraphics == 0:
         sjtx=[
             Coordinate(0,0,colortian),
@@ -66,10 +64,10 @@ def suijituxing(randowGraphics):
         ]
     elif randowGraphics == 1:
         sjtx=[
-            Coordinate(1,0,colorfshandian),
-            Coordinate(1,1,colorfshandian),
-            Coordinate(0,1,colorfshandian),
-            Coordinate(0,2,colorfshandian)
+            Coordinate(0,0,colorshandian),
+            Coordinate(0,1,colorshandian),
+            Coordinate(1,1,colorshandian),
+            Coordinate(1,2,colorshandian)
         ]
     elif randowGraphics == 2:
         sjtx=[
@@ -105,8 +103,8 @@ def suijituxing(randowGraphics):
         ]
     elif randowGraphics == 6:
         sjtx=[
-            Coordinate(0,1,colorfeiji),
             Coordinate(1,0,colorfeiji),
+            Coordinate(0,1,colorfeiji),
             Coordinate(1,1,colorfeiji),
             Coordinate(1,2,colorfeiji)
             
@@ -133,6 +131,8 @@ def suijiweizhi(randowGraphics):
 
     return randomNumber
 
+
+#触碰判断
 def chupen(row,clo):
     buer = True
     for l in pinchou:
@@ -142,7 +142,9 @@ def chupen(row,clo):
 
     return buer
 
+#左右移动
 def move(zm):
+    global sjtx
     ydjl = []
     i = len(sjtx) - 1
     if zm == 'a':
@@ -169,27 +171,52 @@ def move(zm):
                     for y in ydjl:
                         sjtx[y].clo -= 1
                     break
-def rotate():
-    global direction
-    for dt in sjtx:
-        if direction == 0:
-            dt.row += dt.clo
-            dt.clo -= dt.clo
-            direction = 1
-        elif direction == 1:
-            dt.row -= dt.clo
-            dt.clo -= dt.clo
-            direction = 2
-        elif direction == 2:
-            dt.row -= dt.clo
-            dt.clo += dt.clo
-            direction = 3
-        elif direction == 3:
-            dt.clo += abs(dt.row)
-            dt.row -= dt.clo
-            direction = 0
-            
+#取反
+def qufan(num):    
+    if num < 0:
+        zjz = num
+        num = num - zjz - zjz
+    elif num > 0:
+        num = abs(num)
 
+    return num
+
+#旋转
+def rotate():
+    global sjtx
+    if sjtx[0].color != colortian:
+        zx = sjtx[2]
+
+        jl = True
+
+        #依次判断所有的块选择以后会不会越界
+        for xz in sjtx:
+            num1 = zx.clo - xz.clo
+            num2 = zx.row - xz.row
+            xiadiy = zx.row - num1
+            yuejie = zx.clo + num2
+            if yuejie < 0 or yuejie > clo - 1 or xiadiy > row - 1 or chupen(xiadiy,yuejie) == False:
+                jl = False
+
+        if jl:
+            for xz in sjtx:
+                num1 = zx.clo - xz.clo
+                num2 = zx.row - xz.row
+                xz.row = zx.row - num1
+                xz.clo = zx.clo + num2
+
+        #列表顺序调整
+        min = sjtx[0]
+        max = sjtx[0]
+        for h in range(len(sjtx)):
+            min = sjtx[0]
+            max = sjtx[len(sjtx)-1]
+            if sjtx[h].clo < sjtx[0].clo:
+                sjtx[0] = sjtx[h]
+                sjtx[h] = min
+            if sjtx[h].clo > sjtx[len(sjtx)-1].clo:
+                sjtx[len(sjtx)-1] = sjtx[h]
+                sjtx[h] = max
 
 while True:
     fpsClock.tick(FPS)
@@ -220,7 +247,15 @@ while True:
                 
                 for pc in sjtx:
                     pinchou.append(pc)
-
+                fs = 0
+                for df in sjtx:
+                    fs = 0
+                    for xpd in pinchou:
+                        if xpd.clo == df.clo:
+                            fs+=1
+                        if fs == 9:
+                            print('得分')
+                print(fs)
                 break
 
         for hz in sjtx:
