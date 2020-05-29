@@ -88,9 +88,9 @@ def suijituxing(randowGraphics):
     elif randowGraphics == 4:
         sjtx=[
             Coordinate(0,0,colorfgouzi),
-            Coordinate(0,1,colorfgouzi),
             Coordinate(1,0,colorfgouzi),
-            Coordinate(2,0,colorfgouzi)
+            Coordinate(2,0,colorfgouzi),
+            Coordinate(0,1,colorfgouzi)
             
         ]
     elif randowGraphics == 5:
@@ -222,6 +222,9 @@ def odb():
                 xt=False
         if xt:
             bt.append(i)
+    for a in bt:
+        print(a.row)
+    print('**************************')
     return bt
 
 while True:
@@ -263,12 +266,12 @@ while True:
                         if fs == 10:
                             for dlt in range(len(pinchou)): 
                                 if pinchou[dlt].row == xpd.row:
-                                    pinchou[dlt].row = 99
-                                    pinchou[dlt].clo = 99
+                                    pinchou[dlt].row = -1
+                                    pinchou[dlt].clo = -1
                             for d in pinchou:
-                                if d.row < xpd.row:
+                                if d.row < df.row:
                                     d.row += 1
-                    print(fs)
+                                    print(d.row)
                 break
 
         for hz in sjtx:
