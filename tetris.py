@@ -208,6 +208,21 @@ def rotate():
             if sjtx[h].clo > sjtx[len(sjtx)-1].clo:
                 sjtx[len(sjtx)-1] = sjtx[h]
                 sjtx[h] = max
+def odb():
+    bt = []
+    q = True
+    for i in sjtx:
+        if q:
+            bt.append(i)
+            q = False
+
+        xt = True
+        for j in bt:
+            if i.row == j.row:
+                xt=False
+        if xt:
+            bt.append(i)
+    return bt
 
 while True:
     fpsClock.tick(FPS)
@@ -239,13 +254,14 @@ while True:
                 for pc in sjtx:
                     pinchou.append(pc)
                 fs = 0
-                for df in sjtx:
+                xpdd = []
+                for df in odb():
                     fs = 0
                     for xpd in pinchou:
                         if xpd.row == df.row:
                             fs+=1
                         if fs == 10:
-                            for dlt in range(len(pinchou)):
+                            for dlt in range(len(pinchou)): 
                                 if pinchou[dlt].row == xpd.row:
                                     pinchou[dlt].row = 99
                                     pinchou[dlt].clo = 99
