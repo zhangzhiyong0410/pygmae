@@ -171,15 +171,6 @@ def move(zm):
                     for y in ydjl:
                         sjtx[y].clo -= 1
                     break
-#取反
-def qufan(num):    
-    if num < 0:
-        zjz = num
-        num = num - zjz - zjz
-    elif num > 0:
-        num = abs(num)
-
-    return num
 
 #旋转
 def rotate():
