@@ -251,11 +251,17 @@ while True:
                 for df in sjtx:
                     fs = 0
                     for xpd in pinchou:
-                        if xpd.clo == df.clo:
+                        if xpd.row == df.row:
                             fs+=1
-                        if fs == 9:
-                            print('得分')
-                print(fs)
+                        if fs == 10:
+                            for dlt in range(len(pinchou)):
+                                if pinchou[dlt].row == xpd.row:
+                                    pinchou[dlt].row = 99
+                                    pinchou[dlt].clo = 99
+                            for d in pinchou:
+                                if d.row < xpd.row:
+                                    d.row += 1
+                    print(fs)
                 break
 
         for hz in sjtx:
