@@ -211,12 +211,14 @@ def rotate():
 def odb():
     bt = []
     q = True
+    print('-----------------------')
     for i in sjtx:
         if q:
             bt.append(i)
             q = False
 
         xt = True
+        
         for j in bt:
             if i.row == j.row:
                 xt=False
@@ -224,7 +226,6 @@ def odb():
             bt.append(i)
     for a in bt:
         print(a.row)
-    print('**************************')
     return bt
 
 while True:
@@ -257,21 +258,22 @@ while True:
                 for pc in sjtx:
                     pinchou.append(pc)
                 fs = 0
-                xpdd = []
                 for df in odb():
                     fs = 0
                     for xpd in pinchou:
                         if xpd.row == df.row:
                             fs+=1
                         if fs == 10:
-                            for dlt in range(len(pinchou)): 
-                                if pinchou[dlt].row == xpd.row:
-                                    pinchou[dlt].row = -1
-                                    pinchou[dlt].clo = -1
-                            for d in pinchou:
-                                if d.row < df.row:
-                                    d.row += 1
-                                    print(d.row)
+                            for l in pinchou:
+                                if xpd.row == l.row:
+                                    l.row = 99
+                                    l.clo = 99
+                                elif xpd.row > l.row:
+                                    l.row += 1
+                            fs = 0
+                            
+
+
                 break
 
         for hz in sjtx:
