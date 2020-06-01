@@ -3,9 +3,12 @@ from pygame.locals import *
 import random
 import time
 
+
+score           = 0
 #constant
-FPS = 5
-windowsWidth    = 200   #窗口宽
+FPS             = 10
+gamesWidth      = 200   #游戏口宽
+windowsWidht    = 300
 windowsHeight   = 500   #窗口高
 row             = 25    #行
 clo             = 10    #列
@@ -13,7 +16,7 @@ clo             = 10    #列
 
 
 pygame.init()
-DISPLAYSURF = pygame.display.set_mode((windowsWidth,windowsHeight))
+DISPLAYSURF = pygame.display.set_mode((300,windowsHeight))
 pygame.display.set_caption('tetris')
 fpsClock = pygame.time.Clock()
 
@@ -28,15 +31,19 @@ colorfgouzi     = (225,225,  0)
 colorbiandan    = (225,  0,  0)
 colorfeiji      = (  0,  0,128)
 colortext       = (  0,  0,  0)
+colorscore      = (  0,128,192)
 
-fonObj = pygame.font.Font('ERASBD.TTF',30)
-textSurfaceObj = fonObj.render('game over !',True,colortext,colorbackground)
-textRectObj = textSurfaceObj.get_rect()
-textRectObj.center = (windowsWidth / 2,windowsHeight / 2)
+def wenzihuizhi(content,left,top):
+    fonObj = pygame.font.Font('ERASBD.TTF',20)
+    textSurfaceObj = fonObj.render(content,True,colorbackground,colorscore)
+    textRectObj = textSurfaceObj.get_rect()
+    textRectObj.center = (left,top)
+    DISPLAYSURF.blit(textSurfaceObj,textRectObj)
 
 pinchou = []
 stop = False
 xz = False
+over = False
 sjtx = []
 
 class Coordinate:
@@ -49,9 +56,9 @@ class Coordinate:
         self.color = color
 
 def huizhi(color,left,top):
-    lefts = windowsWidth / clo * left
+    lefts = gamesWidth / clo * left
     tops  = windowsHeight / row * top
-    pygame.draw.rect(DISPLAYSURF,color,(lefts,tops,windowsWidth/clo,windowsHeight/row))
+    pygame.draw.rect(DISPLAYSURF,color,(lefts,tops,gamesWidth/clo,windowsHeight/row))
 
 def suijituxing(randowGraphics):
     global sjtx
@@ -211,7 +218,6 @@ def rotate():
 def odb():
     bt = []
     q = True
-    print('-----------------------')
     for i in sjtx:
         if q:
             bt.append(i)
@@ -224,13 +230,14 @@ def odb():
                 xt=False
         if xt:
             bt.append(i)
-    for a in bt:
-        print(a.row)
     return bt
 
 while True:
     fpsClock.tick(FPS)
     DISPLAYSURF.fill(colorbackground)
+    pygame.draw.rect(DISPLAYSURF,colorscore,(200,0,100,500))
+    stringscore = 'score:'+str(score)
+    wenzihuizhi(stringscore,gamesWidth+(windowsWidht-gamesWidth)/2,100)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -261,33 +268,37 @@ while True:
                 for df in odb():
                     fs = 0
                     for xpd in pinchou:
+                        if xpd.row == 99:
+                            continue
                         if xpd.row == df.row:
                             fs+=1
                         if fs == 10:
                             for l in pinchou:
                                 if xpd.row == l.row:
                                     l.row = 99
-                                    l.clo = 99
                                 elif xpd.row > l.row:
                                     l.row += 1
                             fs = 0
-                            
-
-
+                            if over:
+                                pass
+                            else:
+                                score += 1
+                            break
                 break
 
         for hz in sjtx:
             huizhi(hz.color,hz.clo,hz.row)
     else:
         randowGraphics = random.randint(0,6)
-        sjtx = suijituxing(randowGraphics)
         randomNumber = suijiweizhi(randowGraphics)
+        sjtx = suijituxing(randowGraphics)
 
         stop = True
     
     for pchz in pinchou:
         if(pchz.row == 0):
-            DISPLAYSURF.blit(textSurfaceObj,textRectObj)
+            wenzihuizhi('game over!!!',windowsWidht/2,windowsHeight/2)
+            over = True
         else:
             huizhi(pchz.color,pchz.clo,pchz.row)
 
