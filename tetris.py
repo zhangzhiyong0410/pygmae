@@ -1,8 +1,9 @@
-import pygame, sys
-from pygame.locals import *
 import random
+import sys
 import time
 
+import pygame
+from pygame.locals import *
 
 score           = 0
 #constant
@@ -22,7 +23,7 @@ fpsClock = pygame.time.Clock()
 
 
 #Color              R   G   B
-colorbackground = (225,225,225)
+colorbackground = ( 69, 69, 69)
 colortian       = (128,  0,225)
 colorshandian   = (  0,225,225)
 colorfshandian  = (225,128,  0)
@@ -60,60 +61,60 @@ def huizhi(color,left,top):
     tops  = windowsHeight / row * top
     pygame.draw.rect(DISPLAYSURF,color,(lefts,tops,gamesWidth/clo,windowsHeight/row))
 
-def suijituxing(randowGraphics):
+def suijituxing(randowGraphics,randomNumber):
     global sjtx
     if randowGraphics == 0:
         sjtx=[
-            Coordinate(0,0,colortian),
-            Coordinate(0,1,colortian),
-            Coordinate(1,0,colortian),
-            Coordinate(1,1,colortian)
+            Coordinate(0,0+randomNumber,colortian),
+            Coordinate(0,1+randomNumber,colortian),
+            Coordinate(1,0+randomNumber,colortian),
+            Coordinate(1,1+randomNumber,colortian)
         ]
     elif randowGraphics == 1:
         sjtx=[
-            Coordinate(0,0,colorshandian),
-            Coordinate(0,1,colorshandian),
-            Coordinate(1,1,colorshandian),
-            Coordinate(1,2,colorshandian)
+            Coordinate(0,0+randomNumber,colorshandian),
+            Coordinate(0,1+randomNumber,colorshandian),
+            Coordinate(1,1+randomNumber,colorshandian),
+            Coordinate(1,2+randomNumber,colorshandian)
         ]
     elif randowGraphics == 2:
         sjtx=[
-            Coordinate(1,0,colorfshandian),
-            Coordinate(1,1,colorfshandian),
-            Coordinate(0,1,colorfshandian),
-            Coordinate(0,2,colorfshandian)
+            Coordinate(1,0+randomNumber,colorfshandian),
+            Coordinate(1,1+randomNumber,colorfshandian),
+            Coordinate(0,1+randomNumber,colorfshandian),
+            Coordinate(0,2+randomNumber,colorfshandian)
         ]
 
     elif randowGraphics == 3:
         sjtx=[
-            Coordinate(0,0,colorgouzi),
-            Coordinate(0,1,colorgouzi),
-            Coordinate(1,1,colorgouzi),
-            Coordinate(2,1,colorgouzi)
+            Coordinate(0,0+randomNumber,colorgouzi),
+            Coordinate(0,1+randomNumber,colorgouzi),
+            Coordinate(1,1+randomNumber,colorgouzi),
+            Coordinate(2,1+randomNumber,colorgouzi)
 
 ]
     elif randowGraphics == 4:
         sjtx=[
-            Coordinate(0,0,colorfgouzi),
-            Coordinate(1,0,colorfgouzi),
-            Coordinate(2,0,colorfgouzi),
-            Coordinate(0,1,colorfgouzi)
+            Coordinate(0,0+randomNumber,colorfgouzi),
+            Coordinate(1,0+randomNumber,colorfgouzi),
+            Coordinate(2,0+randomNumber,colorfgouzi),
+            Coordinate(0,1+randomNumber,colorfgouzi)
             
         ]
     elif randowGraphics == 5:
         sjtx=[
-            Coordinate(0,0,colorbiandan),
-            Coordinate(1,0,colorbiandan),
-            Coordinate(2,0,colorbiandan),
-            Coordinate(3,0,colorbiandan)
+            Coordinate(0,0+randomNumber,colorbiandan),
+            Coordinate(1,0+randomNumber,colorbiandan),
+            Coordinate(2,0+randomNumber,colorbiandan),
+            Coordinate(3,0+randomNumber,colorbiandan)
             
         ]
     elif randowGraphics == 6:
         sjtx=[
-            Coordinate(1,0,colorfeiji),
-            Coordinate(0,1,colorfeiji),
-            Coordinate(1,1,colorfeiji),
-            Coordinate(1,2,colorfeiji)
+            Coordinate(1,0+randomNumber,colorfeiji),
+            Coordinate(0,1+randomNumber,colorfeiji),
+            Coordinate(1,1+randomNumber,colorfeiji),
+            Coordinate(1,2+randomNumber,colorfeiji)
             
         ]
 
@@ -222,16 +223,31 @@ def odb():
     q = True
     for i in sjtx:
         if q:
-            bt.append(i)
+            bt.append(i.row)
             q = False
 
         xt = True
         
         for j in bt:
-            if i.row == j.row:
+            if i.row == j:
                 xt=False
         if xt:
-            bt.append(i)
+            bt.append(i.row)
+
+    number = 0
+    for wm in range(len(bt)):
+        i = wm
+        while i < len(bt):
+            number = bt[wm]
+            if bt[i]<bt[wm]:
+                bt[wm] = bt[i]
+                bt[i] = number
+            i+=1
+
+    print('**************************')
+    for a in bt:
+        print(a)
+
     return bt
 
 def defen():
@@ -284,6 +300,25 @@ while True:
                 
                 for pc in sjtx:
                     pinchou.append(pc)
+                fs = 0
+                for pd in odb():
+                    fs = 0
+                    for pc in pinchou:
+                        if pc.row == 99:
+                            continue
+                        if pd == pc.row:
+                            fs += 1
+                            if fs == 10:
+                                fs = 0
+                                if over:
+                                    pass
+                                else:
+                                    score += 1
+                                for df in pinchou:
+                                    if df.row == pd:
+                                        df.row = 99
+                                    elif df.row < pd:
+                                        df.row += 1
                 break
 
         for hz in sjtx:
@@ -291,7 +326,7 @@ while True:
     else:
         randowGraphics = random.randint(0,6)
         randomNumber = suijiweizhi(randowGraphics)
-        sjtx = suijituxing(randowGraphics)
+        sjtx = suijituxing(randowGraphics,randomNumber)
 
         stop = True
     
