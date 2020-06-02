@@ -18,6 +18,8 @@ clo             = 10    #列
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((300,windowsHeight))
+icon = pygame.image.load('a.ico')
+pygame.display.set_icon(icon)
 pygame.display.set_caption('tetris')
 fpsClock = pygame.time.Clock()
 
