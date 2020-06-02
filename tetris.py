@@ -6,7 +6,7 @@ import time
 
 score           = 0
 #constant
-FPS             = 10
+FPS             = 6
 gamesWidth      = 200   #游戏口宽
 windowsWidht    = 300
 windowsHeight   = 500   #窗口高
@@ -215,6 +215,8 @@ def rotate():
             if sjtx[h].clo > sjtx[len(sjtx)-1].clo:
                 sjtx[len(sjtx)-1] = sjtx[h]
                 sjtx[h] = max
+
+#过滤重复列表
 def odb():
     bt = []
     q = True
@@ -232,6 +234,23 @@ def odb():
             bt.append(i)
     return bt
 
+def defen():
+    fs = 0
+    dfl = []
+    for i in sjtx:
+        fs = 0
+        for pc in pinchou:
+            fs = 0
+            if pc.row == i.row:
+                fs += 1
+                if fs == 10:
+                    dfl.append(pc)
+                    fs = 0
+    
+    for sc in dfl:
+        for pc in pinchou:
+            if pc.row == sc.row:
+                pc.row
 while True:
     fpsClock.tick(FPS)
     DISPLAYSURF.fill(colorbackground)
@@ -254,6 +273,7 @@ while True:
     if stop:
         for hz in range(len(sjtx)):
             sjtx[hz].row += 1
+            
             if (sjtx[hz].row < row) and chupen(sjtx[hz].row,sjtx[hz].clo):
                 pass
             else:
@@ -264,26 +284,6 @@ while True:
                 
                 for pc in sjtx:
                     pinchou.append(pc)
-                fs = 0
-                for df in odb():
-                    fs = 0
-                    for xpd in pinchou:
-                        if xpd.row == 99:
-                            continue
-                        if xpd.row == df.row:
-                            fs+=1
-                        if fs == 10:
-                            for l in pinchou:
-                                if xpd.row == l.row:
-                                    l.row = 99
-                                elif xpd.row > l.row:
-                                    l.row += 1
-                            fs = 0
-                            if over:
-                                pass
-                            else:
-                                score += 1
-                            break
                 break
 
         for hz in sjtx:
@@ -294,6 +294,7 @@ while True:
         sjtx = suijituxing(randowGraphics)
 
         stop = True
+    
     
     for pchz in pinchou:
         if(pchz.row == 0):
