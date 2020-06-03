@@ -246,9 +246,6 @@ def odb():
                 bt[i] = number
             i+=1
 
-    print('**************************')
-    for a in bt:
-        print(a)
 
     return bt
 
