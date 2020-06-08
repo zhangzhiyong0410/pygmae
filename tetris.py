@@ -1,6 +1,7 @@
 import random
 import sys
 import time
+import coordinate
 
 import pygame
 from pygame.locals import *
@@ -36,12 +37,7 @@ colorfeiji      = (  0,  0,128)
 colortext       = (  0,  0,  0)
 colorscore      = (  0,128,192)
 
-def wenzihuizhi(content,left,top):
-    fonObj = pygame.font.Font('ERASBD.TTF',20)
-    textSurfaceObj = fonObj.render(content,True,colorbackground,colorscore)
-    textRectObj = textSurfaceObj.get_rect()
-    textRectObj.center = (left,top)
-    DISPLAYSURF.blit(textSurfaceObj,textRectObj)
+Coordinate = coordinate.Coordinate
 
 pinchou = []
 stop = False
@@ -49,14 +45,12 @@ xz = False
 over = False
 sjtx = []
 
-class Coordinate:
-    row = 0
-    clo = 0
-    color = (0,0,0)
-    def __init__(self,row,clo,color):
-        self.row = row
-        self.clo = clo
-        self.color = color
+def wenzihuizhi(content,left,top):
+    fonObj = pygame.font.Font('ERASBD.TTF',20)
+    textSurfaceObj = fonObj.render(content,True,colorbackground,colorscore)
+    textRectObj = textSurfaceObj.get_rect()
+    textRectObj.center = (left,top)
+    DISPLAYSURF.blit(textSurfaceObj,textRectObj)
 
 def huizhi(color,left,top):
     lefts = gamesWidth / clo * left
