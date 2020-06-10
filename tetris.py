@@ -55,7 +55,7 @@ def wenzihuizhi(content,left,top):
 def huizhi(color,left,top):
     lefts = gamesWidth / clo * left
     tops  = windowsHeight / row * top
-    pygame.draw.rect(DISPLAYSURF,color,(lefts,tops,gamesWidth/clo,windowsHeight/row))
+    pygame.draw.rect(DISPLAYSURF,color,(lefts,tops,gamesWidth/clo,windowsHeight/row),5)
 
 def suijituxing(randowGraphics,randomNumber):
     global sjtx
