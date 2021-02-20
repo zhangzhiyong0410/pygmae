@@ -23,21 +23,26 @@
 #             sjtx[i] = number
 #         i+=1
 
-sjtx = [4,1,7,2,5,8,3,6,9,11]
-maxs = 0
-cf = 0
-for a in sjtx:
-    if a > maxs:
-        maxs = a
-for b in range(maxs+1):
-    for c in sjtx:
-        if c == b:
-            cf += 1
-    if cf > 0:
-        print(b)
-    else:
-        print("没有")
-    cf = 0
+# sjtx = [4,1,7,2,5,8,3,6,9,11]
+# maxs = 0
+# cf = 0
+# for a in sjtx:
+#     if a > maxs:
+#         maxs = a
+# for b in range(maxs+1):
+#     for c in sjtx:
+#         if c == b:
+#             cf += 1
+#     if cf > 0:
+#         print(b)
+#     else:
+#         print("没有")
+#     cf = 0
+import coordinate
+Coordinate = coordinate.Coordinate
+a = Coordinate(0,0,(255,0,0))
+b = Coordinate(0,0,(255,0,0))
+print(a.row==b.row)
 
 
 

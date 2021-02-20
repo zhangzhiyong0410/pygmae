@@ -85,13 +85,20 @@ while True:
 
     rect(fruit_coordinate)
 
-    for r in range(len(head)):
-        if r == 0:
-            rect(head[r])
-        else:
-            head[r].row = head[r-1].row
-            head[r].clo = head[r-1].clo
-            rect(head[r])
-        move(orientation)
+
+    record_row = head[0].row
+    record_clo = head[0].clo
+    Intermediary_row = 0
+    Intermediary_clo = 0
+    move(orientation)
+    rect(head[0])
+    for r in range(1,len(head)):
+        Intermediary_row = head[r].row
+        Intermediary_clo = head[r].clo
+        head[r].row = record_row
+        head[r].clo = record_clo
+        record_row = Intermediary_row
+        record_clo = Intermediary_clo  
+        rect(head[r])  
 
     pygame.display.update()
