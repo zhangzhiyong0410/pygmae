@@ -18,7 +18,6 @@ FPS = 6
 rect_width = window_width / CLO
 rect_height = window_height / ROW
 
-#Color definition
 color_background = (150,150,150)
 color_snake = (0,140,63)
 color_fruit = (255,0,0)
@@ -49,6 +48,18 @@ def move(orientation):
         head[0].clo -= 1
     elif orientation == direction["right"]:
         head[0].clo += 1
+
+def overstep_the_boundary(list_snake):
+    if list_snake[0].row >= 0 and list_snake[0].clo >= 0:
+        if list_snake[0].row >= ROW or list_snake[0].clo >= CLO:
+            return True
+        else:
+            for i in range(1,len(head)):
+                if head[i].row == head[0].row and head[i].clo == head[0].clo:
+                    return True
+            return False
+    else:
+        return True
 
 def fruit():
     random_row = random.randint(0,ROW - 1)
@@ -98,6 +109,7 @@ while True:
     
     if head[0].row == fruit_coordinate.row and head[0].clo == fruit_coordinate.clo:
         grow_up()
+        fruit_state = True
 
     rect(fruit_coordinate)
 
@@ -108,6 +120,9 @@ while True:
     Intermediary_clo = 0
     move(orientation)
     rect(head[0])
+    if overstep_the_boundary(head):
+        pygame.quit()
+        sys.exit()
     for r in range(1,len(head)):
         Intermediary_row = head[r].row
         Intermediary_clo = head[r].clo
