@@ -68,13 +68,29 @@ while True:
             sys.exit()
         elif event.type == KEYDOWN:
             if event.key == direction["up"]:
-                orientation = direction["up"]
+                if len(head) <= 1:
+                    orientation = direction["up"]
+                else:
+                    if orientation != direction["down"]:
+                        orientation = direction["up"]
             elif event.key == direction["down"]:
-                orientation = direction["down"]
+                if len(head) <= 1:
+                    orientation = direction["down"]
+                else:
+                    if orientation != direction["up"]:
+                        orientation = direction["down"]
             elif event.key == direction["left"]:
-                orientation = direction["left"]
+                if len(head) <= 1:
+                    orientation = direction["left"]
+                else:
+                    if orientation != direction["right"]:
+                        orientation = direction["left"]
             elif event.key == direction["right"]:
-                orientation = direction["right"]
+                if len(head) <= 1:
+                    orientation = direction["right"]
+                else:
+                    if orientation != direction["left"]:
+                        orientation = direction["right"]
                 
     if fruit_state:
         fruit_coordinate = fruit()
