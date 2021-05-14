@@ -1,50 +1,30 @@
+import threading
+import time
 
-# sjtx = [4,1,7,2,5,8,3,6,9]
-# number = 0
-# for wm in range(len(sjtx)):
-#     for lm in range(len(sjtx)):
-#         number = sjtx[wm]
-#         if sjtx[lm]>sjtx[wm]:
-#             sjtx[wm] = sjtx[lm]
-#             sjtx[lm] = number
+def run():
 
-# for i in sjtx:
-#     print(i)
+    time.sleep(2)
+    print('当前线程的名字是： ', threading.current_thread().name)
+    print(threading.currentThread())
+    time.sleep(2)
 
 
-# sjtx = [4,1,7,2,5,8,3,6,9]
-# number = 0
-# for wm in range(len(sjtx)):
-#     i = wm
-#     while i < len(sjtx):
-#         number = sjtx[wm]
-#         if sjtx[i]<sjtx[wm]:
-#             sjtx[wm] = sjtx[i]
-#             sjtx[i] = number
-#         i+=1
+if __name__ == '__main__':
 
-# sjtx = [4,1,7,2,5,8,3,6,9,11]
-# maxs = 0
-# cf = 0
-# for a in sjtx:
-#     if a > maxs:
-#         maxs = a
-# for b in range(maxs+1):
-#     for c in sjtx:
-#         if c == b:
-#             cf += 1
-#     if cf > 0:
-#         print(b)
-#     else:
-#         print("没有")
-#     cf = 0
-import coordinate
-Coordinate = coordinate.Coordinate
-a = Coordinate(0,0,(255,0,0))
-b = Coordinate(0,0,(255,0,0))
-print(a.row==b.row)
+    start_time = time.time()
+
+    print('这是主线程：', threading.current_thread().name)
+    thread_list = []
+    for i in range(5):
+        t = threading.Thread(target=run)
+        thread_list.append(t)
+
+    for t in thread_list:
+        t.setDaemon(True)
+        t.start()
+    for t in thread_list:
+        t.join()
 
 
-
-# for i in sjtx:
-#     print(i)
+    print('主线程结束了！' , threading.current_thread().name)
+    print('一共用时：', time.time()-start_time)
