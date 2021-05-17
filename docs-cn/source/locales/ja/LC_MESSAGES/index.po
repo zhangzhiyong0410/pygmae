@@ -22,8 +22,8 @@ msgid "Contents:"
 msgstr ""
 
 #: ../index.rst:7
-msgid "八嘎八嘎八嘎八嘎八嘎八嘎八嘎八嘎八嘎"
-msgstr ""
+msgid "Welcome to pygame-cn's documentation!"
+msgstr "八嘎八嘎八嘎八嘎"
 
 #: ../index.rst:16
 msgid "Indices and tables"
