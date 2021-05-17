@@ -23,7 +23,7 @@ msgstr "目录"
 
 #: ../index.rst:7
 msgid "Welcome to pygame-cn's documentation!"
-msgstr "欢迎查看pygame文档"
+msgstr "欢迎查看pygame文asdf档"
 
 #: ../index.rst:16
 msgid "Indices and tables"
