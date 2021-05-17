@@ -61,4 +61,4 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_static_path = ['_static']
 
 # language = 'zh_CN'
-# locale_dirs = ['locale/']
+locale_dirs = ['locale/']
