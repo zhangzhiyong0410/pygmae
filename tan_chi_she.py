@@ -13,7 +13,7 @@ window_width = 500
 ROW = 20    
 CLO = 20
 
-FPS = 6
+FPS = 10
 
 rect_width = window_width / CLO
 rect_height = window_height / ROW
@@ -37,7 +37,6 @@ fruit_state = True
 def rect(coordinate):
     left = coordinate.clo * rect_width
     top = coordinate.row * rect_height
-    print(left,'---', top)
     pygame.draw.rect(window, coordinate.color, (left, top, rect_width, rect_height))
 
 def move(orientation):
@@ -57,7 +56,7 @@ def overstep_the_boundary(list_snake):
         else:
             for i in range(1,len(head)):
                 if head[i].row == head[0].row and head[i].clo == head[0].clo:
-                    print(head[i].clo*25,"////////",head[i].row*25)
+            
                     return True
             return False
     else:
@@ -113,8 +112,6 @@ while True:
         grow_up()
         fruit_state = True
     
-    print('---------------------------------------------------------------')
-    print("guozi")
     rect(fruit_coordinate)
 
 
@@ -123,7 +120,6 @@ while True:
     Intermediary_row = 0
     Intermediary_clo = 0
     move(orientation)
-    print("tou")
     rect(head[0])
     if overstep_the_boundary(head):
         pygame.quit()
