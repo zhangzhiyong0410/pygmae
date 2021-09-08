@@ -37,7 +37,6 @@ fruit_state = True
 def rect(coordinate):
     left = coordinate.clo * rect_width
     top = coordinate.row * rect_height
-    print(left,'---', top)
     pygame.draw.rect(window, coordinate.color, (left, top, rect_width, rect_height))
 
 def move(orientation):
@@ -57,7 +56,6 @@ def overstep_the_boundary(list_snake):
         else:
             for i in range(1,len(head)):
                 if head[i].row == head[0].row and head[i].clo == head[0].clo:
-                    print(head[i].clo*25,"////////",head[i].row*25)
                     return True
             return False
     else:
@@ -72,7 +70,9 @@ def grow_up():
     head.append(coordinates(0,0,color_snake))
 
 head = [coordinates(0,0,color_snake)]
+cishu = 0
 while True:
+    cishu+=1
     clock.tick(FPS)
     window.fill(color_background)
     for event in pygame.event.get():
@@ -86,24 +86,28 @@ while True:
                 else:
                     if orientation != direction["down"]:
                         orientation = direction["up"]
+                break
             elif event.key == direction["down"]:
                 if len(head) <= 1:
                     orientation = direction["down"]
                 else:
                     if orientation != direction["up"]:
                         orientation = direction["down"]
+                break
             elif event.key == direction["left"]:
                 if len(head) <= 1:
                     orientation = direction["left"]
                 else:
                     if orientation != direction["right"]:
                         orientation = direction["left"]
+                break
             elif event.key == direction["right"]:
                 if len(head) <= 1:
                     orientation = direction["right"]
                 else:
                     if orientation != direction["left"]:
                         orientation = direction["right"]
+                break
                 
     if fruit_state:
         fruit_coordinate = fruit()
@@ -113,8 +117,6 @@ while True:
         grow_up()
         fruit_state = True
     
-    print('---------------------------------------------------------------')
-    print("guozi")
     rect(fruit_coordinate)
 
 
@@ -123,7 +125,6 @@ while True:
     Intermediary_row = 0
     Intermediary_clo = 0
     move(orientation)
-    print("tou")
     rect(head[0])
     if overstep_the_boundary(head):
         pygame.quit()
