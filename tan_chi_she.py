@@ -13,7 +13,7 @@ window_width = 500
 ROW = 20    
 CLO = 20
 
-FPS = 6
+FPS = 10
 
 rect_width = window_width / CLO
 rect_height = window_height / ROW
@@ -56,6 +56,7 @@ def overstep_the_boundary(list_snake):
         else:
             for i in range(1,len(head)):
                 if head[i].row == head[0].row and head[i].clo == head[0].clo:
+            
                     return True
             return False
     else:
