@@ -56,7 +56,6 @@ def overstep_the_boundary(list_snake):
         else:
             for i in range(1,len(head)):
                 if head[i].row == head[0].row and head[i].clo == head[0].clo:
-            
                     return True
             return False
     else:
